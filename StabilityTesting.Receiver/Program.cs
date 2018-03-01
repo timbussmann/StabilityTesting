@@ -12,7 +12,7 @@ namespace StabilityTesting.Receiver
 
         static async Task Main(string[] args)
         {
-            var connectionString = Environment.GetEnvironmentVariable("StabilityTesting.SQLConnectionString");
+            var connectionString = Environment.GetEnvironmentVariable("StabilityTesting_SQLConnectionString");
             var endpointConfiguration = new EndpointConfiguration("StabilityTesting.Receiver");
 
             var transportConfiguration = endpointConfiguration.UseTransport<SqlServerTransport>();

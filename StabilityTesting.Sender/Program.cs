@@ -14,7 +14,7 @@ namespace StabilityTesting.Sender
 
         static async Task Main(string[] args)
         {
-            var connectionString = Environment.GetEnvironmentVariable("StabilityTesting.SQLConnectionString");
+            var connectionString = Environment.GetEnvironmentVariable("StabilityTesting_SQLConnectionString");
 
             var endpointConfiguration = new EndpointConfiguration("StabilityTesting.Sender");
 
