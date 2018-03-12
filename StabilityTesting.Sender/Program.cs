@@ -20,6 +20,7 @@ namespace StabilityTesting.Sender
 
             var transportConfiguration = endpointConfiguration.UseTransport<RabbitMQTransport>();
             transportConfiguration.ConnectionString(connectionString);
+            transportConfiguration.UseConventionalRoutingTopology();
             var routingSettings = transportConfiguration.Routing();
             routingSettings.RouteToEndpoint(typeof(PlaceOrder), "StabilityTesting.Receiver");
 

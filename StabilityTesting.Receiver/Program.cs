@@ -17,6 +17,7 @@ namespace StabilityTesting.Receiver
 
             var transportConfiguration = endpointConfiguration.UseTransport<RabbitMQTransport>();
             transportConfiguration.ConnectionString(connectionString);
+            transportConfiguration.UseConventionalRoutingTopology();
 
             var persistenceConfiguration = endpointConfiguration.UsePersistence<SqlPersistence>();
             persistenceConfiguration.SqlDialect<SqlDialect.MsSqlServer>();
