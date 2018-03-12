@@ -13,7 +13,7 @@ namespace StabilityTesting.Receiver
         static async Task Main(string[] args)
         {
             var rabbitMqConnectionString = Environment.GetEnvironmentVariable("StabilityTesting_RabbitMQConnectionString");
-            var sqlServerConnectionString = Environment.GetEnvironmentVariable("StabilityTesting_StabilityTesting_SQLConnectionString");
+            var sqlServerConnectionString = Environment.GetEnvironmentVariable("StabilityTesting_SQLConnectionString");
             var endpointConfiguration = new EndpointConfiguration("StabilityTesting.Receiver");
 
             var transportConfiguration = endpointConfiguration.UseTransport<RabbitMQTransport>();
