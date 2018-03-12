@@ -12,17 +12,18 @@ namespace StabilityTesting.Receiver
 
         static async Task Main(string[] args)
         {
-            var connectionString = Environment.GetEnvironmentVariable("StabilityTesting_RabbitMQConnectionString");
+            var rabbitMqConnectionString = Environment.GetEnvironmentVariable("StabilityTesting_RabbitMQConnectionString");
+            var sqlServerConnectionString = Environment.GetEnvironmentVariable("StabilityTesting_StabilityTesting_SQLConnectionString");
             var endpointConfiguration = new EndpointConfiguration("StabilityTesting.Receiver");
 
             var transportConfiguration = endpointConfiguration.UseTransport<RabbitMQTransport>();
-            transportConfiguration.ConnectionString(connectionString);
+            transportConfiguration.ConnectionString(rabbitMqConnectionString);
             transportConfiguration.UseConventionalRoutingTopology();
 
             var persistenceConfiguration = endpointConfiguration.UsePersistence<SqlPersistence>();
             persistenceConfiguration.SqlDialect<SqlDialect.MsSqlServer>();
             persistenceConfiguration.SubscriptionSettings().CacheFor(TimeSpan.FromMinutes(1));
-            persistenceConfiguration.ConnectionBuilder(() => new SqlConnection(connectionString));
+            persistenceConfiguration.ConnectionBuilder(() => new SqlConnection(sqlServerConnectionString));
 
             endpointConfiguration.EnableInstallers();
 
