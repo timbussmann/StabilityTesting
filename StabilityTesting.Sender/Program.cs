@@ -14,16 +14,14 @@ namespace StabilityTesting.Sender
 
         static async Task Main(string[] args)
         {
-            var connectionString = Environment.GetEnvironmentVariable("StabilityTesting_SQLConnectionString");
+            var connectionString = Environment.GetEnvironmentVariable("StabilityTesting_RabbitMQConnectionString");
 
             var endpointConfiguration = new EndpointConfiguration("StabilityTesting.Sender");
 
-            var transportConfiguration = endpointConfiguration.UseTransport<SqlServerTransport>();
+            var transportConfiguration = endpointConfiguration.UseTransport<RabbitMQTransport>();
             transportConfiguration.ConnectionString(connectionString);
-            transportConfiguration.Transactions(TransportTransactionMode.SendsAtomicWithReceive);
             var routingSettings = transportConfiguration.Routing();
             routingSettings.RouteToEndpoint(typeof(PlaceOrder), "StabilityTesting.Receiver");
-            routingSettings.RegisterPublisher(typeof(OrderCompleted), "StabilityTesting.Receiver");
 
             var persistenceConfiguration = endpointConfiguration.UsePersistence<SqlPersistence>();
             persistenceConfiguration.SqlDialect<SqlDialect.MsSqlServer>();
